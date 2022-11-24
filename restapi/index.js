@@ -298,3 +298,5 @@ function getAllCustomers(customers) {
     }
     customersList.innerHTML = rows;
 }
+
+

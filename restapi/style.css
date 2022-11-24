@@ -82,7 +82,11 @@
 }
 
 .Need {
-    padding-left: 10%;
+    padding-left: 88% !important;
+    border-radius: none !important;
+    overflow: hidden;
+
+    /* padding-right: 30% !important; */
     
   }
   .Need .searchbox {
