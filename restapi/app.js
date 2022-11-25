@@ -5,43 +5,54 @@
 // format. 
 
 
-// document.querySelector('button').click(function(){
-//     document.querySelector('.alert').classList.add("show");
-//     document.querySelector('.alert').classList.remove("hide");
-//     document.querySelector('.alert').classList.add("showAlert");
-//     setTimeout(function(){
-//       document.querySelector('.alert').classList.remove("show");
-//       document.querySelector('.alert').classList.add("hide");
-//     },2000);
-//   });
-//     document.getElementByClassName("close-btn").click(function(){
-//     document.getElementByClassName("alert").classList.remove("show");
-//     document.getElementByClassName("alert").classList.add("hide");
-//   });
-
 /** @function 
  * @name createArtist
  * @description Creates a new artist
  * @param {string} name - The name of the artist
 */
 // 1. Create a new artist
-function createArtist() {
+async function createArtist() {
     console.log("Creating new artist");
     let resourceUri = "http://localhost/music-api/artists";
+    let artistId = document.getElementById("creationid").value;
+    let artistname = document.getElementById("creationame").value;
+    let message = document.getElementById("createMessage");
     let artist = {
-        "Name": "New Artist"
+        "ArtistId": artistId,
+        "Name": artistname
     };
-    fetch(resourceUri, {
+
+    let response = await fetch(resourceUri, {
         method: 'POST',
         headers: {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
         },
-        body: JSON.stringify(artist)
-    }).then(response => response.json())
-        .then(data => {
-            console.log(data);
-        })
-        .catch(error => console.log(error));
+        body: JSON.stringify([artist])
+    });
+    if (response.ok) {
+        message.innerHTML = 'Artists created successfully';
+        message.style.color = "#00FF00"
+    }
+    else{
+        message.innerHTML = 'Error creating artist';
+        message.style.color = "#FF0000"
+    }
+    
+    
+    // .then(response => response.text())
+    //     .then(data => {
+    //         if(data){
+    //             
+    //             // documente.getElementById("createMessage").innerHTML = 'A';
+    //         }
+    //         console.log(data);
+    //     })
+    //     .catch(error => {
+    //         console.log(error);
+    //         message.innerHTML = '';
+    //         message.style.color = "#FF0000"
+    //     });
 }
 
 const btn = document.querySelector('.enter-data');

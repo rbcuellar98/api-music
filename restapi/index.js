@@ -5,28 +5,43 @@
  * @description This function will display the error message.
 */
 function errorHandler() {
-    document.getElementById('alert').style.display = 'none';
+    let alert = document.getElementById("alert");
+    alert.classList.add("show");
+    alert.classList.add("showAlert");
+    alert.classList.remove("hide");
+    setTimeout(() =>{
+        alert.classList.remove("show");
+        alert.classList.add("hide");
+    }, 2000);
+
 }
 
 /** @function 
  * @name list all the artists
 */
 //1. The list of artists
-function getListOfArtists() {
+async function getListOfArtists() {
     console.log("Getting list of artists");
     // let resourceUri = "http://10.1.3.160/music-api/artists/1/albums/1/tracks";
     let resourceUri = "http://localhost/music-api/artists";
-    fetch(resourceUri, {
+    let response = await fetch(resourceUri, {
         method: 'GET',
         headers: {
             'Accept': 'application/json'
         }
-    }).then(response => response.json())
-        .then(data => {
-            getAllArtists(data);
+    });
+    let artist = await response.json();
+    if (response.ok) {
+        getAllArtists(artist);
+    }else{
+        errorHandler();
+    }
+    // .then(response => response.json())
+    //     .then(data => {
+    //         getAllArtists(data);
             
-        })
-        .catch(error => errorHandler(error));
+    //     })
+    //     .catch(error => errorHandler(error));
 }
 /** @function 
  * @name getAllTracks
@@ -64,22 +79,23 @@ function getAllArtists(artists) {
 */
 
 // 2. The details of a given artist (resource URI: /artists/{artist_id})
-function getArtistDetails() {
+async function getArtistDetails() {
     console.log("Getting artist details");
     let inputs = document.getElementById("inputs").value;
     let resourceUri = "http://localhost/music-api/artists/" + inputs;
     // let resourceUri = "http://localhost/music-api/artists/6";
-    fetch(resourceUri, {
+    let response = await fetch(resourceUri, {
         method: 'GET',
         headers: {
             'Accept': 'application/json'
         }
-    }).then(response => response.json())
-        .then(data => {
-            getArtist(data);
-
-        })
-        .catch(error => errorHandler(error));
+    });
+    let artist = await response.json();
+    if (response.ok) {
+        getArtist(artist);
+    }else{
+        errorHandler();
+    }
         
 }
 /** @function 
@@ -112,29 +128,29 @@ function getArtist(artist) {
  * @description This function will display the list of albums by artists.
 */
 
-function getListOfAlbumsByArtists(){
+async function getListOfAlbumsByArtists(){
     console.log("Getting list of albums by artists");
     let inputs = document.getElementById("inputs").value;
     let resourceUri = "http://localhost/music-api/artists/"+ inputs +"/albums";
     // let resourceUri = "http://localhost/music-api/artists/6/albums";  
-    fetch(resourceUri, {
+    let response = await fetch(resourceUri, {
         method: 'GET',
         headers: {
             'Accept': 'application/json'
         }
-    }).then(response => response.json())
-        .then(data => {
-            getAllAlbums(data);
-            
-        })
-        .catch(error => errorHandler(error));
+    });
+    let ListOfAlbumsByArtists = await response.json();
+    if (response.ok) {
+        getAllAlbums(ListOfAlbumsByArtists);
+    }else{
+        errorHandler();
+    }
 }
 /** @function
  * // 3 The list of albums released by a given artist
  * @name getAllAlbums
  * @description getall the albums in the database
  * **/
-
 function getAllAlbums(albums) {
     document.getElementById("artistTable").style.display = "none";
     document.getElementById("givenArtistTable").style.display = "none";
@@ -168,25 +184,25 @@ function getAllAlbums(albums) {
  * @description URI: /artists/{artist_id}/albums/{album_id}/tracks)
  * @name getListOfTracksByAlbumsandArtist
  * @description This function will display the list of tracks by albums and artists.
- 
  * **/
-
-function getListOfTracksByAlbumAndArtist() {
+async function getListOfTracksByAlbumAndArtist() {
     console.log("Getting list of tracks by album and artist");
+    let input = document.getElementById("input").value;
     let inputs = document.getElementById("inputs").value;
-    let resourceUri = "http://localhost/music-api/artists/"+ inputs+ "/albums/" + inputs+"/tracks";
+    let resourceUri = "http://localhost/music-api/artists/"+ input + "/albums/" + inputs +"/tracks";
     // let resourceUri = "http://localhost/music-api/artists/3/albums/2/tracks";
-    fetch(resourceUri, {
+    let response = await fetch(resourceUri, {
         method: 'GET',
         headers: {
             'Accept': 'application/json'
         }
-    }).then(response => response.json())
-        .then(data => {
-            getAllTracksByAlbumAndArtists(data);
-
-        })
-        .catch(error => errorHandler(error));
+    });
+    let TracksByAlbumAndArtist = await response.json();
+    if (response.ok) {
+        getAllTracksByAlbumAndArtists(TracksByAlbumAndArtist);
+    }else{
+        errorHandler();
+    }
 }
 /** @function 
  * // 4The list of tracks for the specified album and artist. The user should be able to filter the list by genre or media type. Actual values must be used (and not IDs of genre or media type)
@@ -234,24 +250,23 @@ function getAllTracksByAlbumAndArtists(tracks) {
  * @name getListOfTracksPurchasedByCustomer
  * @description This function will display the list of tracks purchased by a given customer.
  * **/
-// (
-function getListOfTracksPurchasedByCustomer() {
+async function getListOfTracksPurchasedByCustomer() {
     console.log("Getting list of tracks purchased by customer");
     let inputs = document.getElementById("inputs").value;
     let resourceUri = "http://localhost/music-api/customers/"+ inputs + "/invoices";
     // let resourceUri = "http://localhost/music-api/customers/1/invoices";
-    fetch(resourceUri, {
+    let response = await fetch(resourceUri, {
         method: 'GET',
         headers: {
             'Accept': 'application/json'
         }
-    }).then(response => response.json())
-        .then(data => {
-            getAllTracks(data);
-
-
-        })
-        .catch(error => errorHandler(error));
+    });
+    let TracksPurchasedByCustomer = await response.json();
+    if (response.ok) {
+        getAllTracks(TracksPurchasedByCustomer);
+    }else{
+        errorHandler();
+    }
 }
 /** @function 
  * 5. The list of tracks purchased by a given customer.
@@ -296,20 +311,23 @@ function getAllTracks(invoices) {
  * @name getListOfCustomers
  * @description This function will display the list of customers.
  */
-
-function getListOfCustomers() {
+async function getListOfCustomers() {
     console.log("Getting list of customers");
     let resourceUri = "http://localhost/music-api/customers";
-    fetch(resourceUri, {
+    let response = await fetch(resourceUri, {
         method: 'GET',
         headers: {
             'Accept': 'application/json'
         }
-    }).then(response => response.json())
-        .then(data => {
-            getAllCustomers(data);
-        })
-        .catch(error => errorHandler(error));
+    });
+    let customers = await response.json();
+    if (response.ok) {
+        getAllCustomers(customers);
+    }else{
+        errorHandler();
+    }
+    
+    
 }
 /** @function 
  * 6) The list of customers 
