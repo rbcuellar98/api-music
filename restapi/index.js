@@ -1,9 +1,16 @@
 "use strict";
 //All errors returned to the client must be detected and handled.
+/** @function 
+ * @name errorHandler
+ * @description This function will display the error message.
+*/
 function errorHandler() {
     document.getElementById('alert').style.display = 'none';
 }
 
+/** @function 
+ * @name list all the artists
+*/
 //1. The list of artists
 function getListOfArtists() {
     console.log("Getting list of artists");
@@ -21,7 +28,9 @@ function getListOfArtists() {
         })
         .catch(error => errorHandler(error));
 }
-
+/** @function 
+ * @name getAllTracks
+*/
 //1. The list of artists
 function getAllArtists(artists) {
     document.getElementById("artistTable").style.display = "block";
@@ -49,6 +58,10 @@ function getAllArtists(artists) {
     artistsList.innerHTML = rows;
     console.log(artists.aritstID);
 }
+/** @function 
+ * @name artist details
+ * @description This function will display the artist details.
+*/
 
 // 2. The details of a given artist (resource URI: /artists/{artist_id})
 function getArtistDetails() {
@@ -69,6 +82,9 @@ function getArtistDetails() {
         .catch(error => errorHandler(error));
         
 }
+/** @function 
+ * @name getArtist
+ **/
 // 2. The details of a given artist (resource URI: /artists/{artist_id})
 function getArtist(artist) {
     document.getElementById("artistTable").style.display = "none";
@@ -90,8 +106,12 @@ function getArtist(artist) {
         console.log(rows);
     givenArtistsList.innerHTML = rows;
 }
+/** @function 
+ * // 3 The list of albums released by a given artist
+ * @name getListOfAlbumsByArtists
+ * @description This function will display the list of albums by artists.
+*/
 
-// 3 The list of albums released by a given artist
 function getListOfAlbumsByArtists(){
     console.log("Getting list of albums by artists");
     let inputs = document.getElementById("inputs").value;
@@ -109,7 +129,12 @@ function getListOfAlbumsByArtists(){
         })
         .catch(error => errorHandler(error));
 }
-// 3 The list of albums released by a given artist
+/** @function
+ * // 3 The list of albums released by a given artist
+ * @name getAllAlbums
+ * @description getall the albums in the database
+ * **/
+
 function getAllAlbums(albums) {
     document.getElementById("artistTable").style.display = "none";
     document.getElementById("givenArtistTable").style.display = "none";
@@ -138,10 +163,14 @@ function getAllAlbums(albums) {
     albumsByArtistList.innerHTML = rows;
     
 }
+/** @function 
+ * // 4The list of tracks for the specified album and artist. The user should be able to filter the list by genre or media type. Actual values must be used (and not IDs of genre or media type)
+ * @description URI: /artists/{artist_id}/albums/{album_id}/tracks)
+ * @name getListOfTracksByAlbumsandArtist
+ * @description This function will display the list of tracks by albums and artists.
+ 
+ * **/
 
-// 4The list of tracks for the specified album and artist. The user should be able to filter the list by genre or
-// media type. Actual values must be used (and not IDs of genre or media type).
-// (resource URI: /artists/{artist_id}/albums/{album_id}/tracks)
 function getListOfTracksByAlbumAndArtist() {
     console.log("Getting list of tracks by album and artist");
     let inputs = document.getElementById("inputs").value;
@@ -159,9 +188,12 @@ function getListOfTracksByAlbumAndArtist() {
         })
         .catch(error => errorHandler(error));
 }
-// 4 The list of tracks for the specified album and artist. The user should be able to filter
-// the list by genre or media type. Actual values must be used (and not IDs of genre or media type).
-// (resource URI: /artists/{artist_id}/albums/{album_id}/tracks)
+/** @function 
+ * // 4The list of tracks for the specified album and artist. The user should be able to filter the list by genre or media type. Actual values must be used (and not IDs of genre or media type)
+ * @description URI: /artists/{artist_id}/albums/{album_id}/tracks)
+ * @name getListOfTracksByAlbumsandArtist
+ * @description This function will display the list of tracks by albums and artists.
+ * **/
 function getAllTracksByAlbumAndArtists(tracks) {
     document.getElementById("artistTable").style.display = "none";
     document.getElementById("givenArtistTable").style.display = "none";
@@ -196,8 +228,13 @@ function getAllTracksByAlbumAndArtists(tracks) {
     tracksByArtistList.innerHTML = rows;
 }
 
-
-// 5. The list of tracks purchased by a given customer.(resource URI: /customers/{customer_id}/invoices)
+/** @function 
+ * 5. The list of tracks purchased by a given customer.
+ * @description resource URI: /customers/{customer_id}/invoices) 
+ * @name getListOfTracksPurchasedByCustomer
+ * @description This function will display the list of tracks purchased by a given customer.
+ * **/
+// (
 function getListOfTracksPurchasedByCustomer() {
     console.log("Getting list of tracks purchased by customer");
     let inputs = document.getElementById("inputs").value;
@@ -216,8 +253,12 @@ function getListOfTracksPurchasedByCustomer() {
         })
         .catch(error => errorHandler(error));
 }
-// 5. The list of tracks purchased by a given customer.(resource URI: /customers/{customer_id}/invoices)
-
+/** @function 
+ * 5. The list of tracks purchased by a given customer.
+ * @description resource URI: /customers/{customer_id}/invoices) 
+ * @name getListOfTracksPurchasedByCustomer
+ * @description This function will display the list of tracks purchased by a given customer.
+ * **/
 function getAllTracks(invoices) {
     document.getElementById("artistTable").style.display = "none";
     document.getElementById("givenArtistTable").style.display = "none";
@@ -249,7 +290,13 @@ function getAllTracks(invoices) {
     givenPurchaseList.innerHTML = rows;
 }
 
-// 6) The list of customers 
+/** @function 
+ * 6) The list of customers 
+ * @description resource URI: /customers)
+ * @name getListOfCustomers
+ * @description This function will display the list of customers.
+ */
+
 function getListOfCustomers() {
     console.log("Getting list of customers");
     let resourceUri = "http://localhost/music-api/customers";
@@ -264,7 +311,12 @@ function getListOfCustomers() {
         })
         .catch(error => errorHandler(error));
 }
-// 6) The list of customers 
+/** @function 
+ * 6) The list of customers 
+ * @description resource URI: /customers)
+ * @name getListOfCustomers
+ * @description This function will display the list of customers.
+ */
 function getAllCustomers(customers) {
     document.getElementById("artistTable").style.display = "none";
     document.getElementById("givenArtistTable").style.display = "none";

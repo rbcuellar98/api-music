@@ -19,7 +19,11 @@
 //     document.getElementByClassName("alert").classList.add("hide");
 //   });
 
-
+/** @function 
+ * @name createArtist
+ * @description Creates a new artist
+ * @param {string} name - The name of the artist
+*/
 // 1. Create a new artist
 function createArtist() {
     console.log("Creating new artist");
